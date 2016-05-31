@@ -19,6 +19,7 @@ func TestIsSnakeCase(t *testing.T) {
 		{"foobar1", true},
 		{"foo1bar", true},
 
+		{"", false},
 		{"1_foo_bar", false},
 		{"1foobar", false},
 		{"FOO_BAR", false},
@@ -47,6 +48,7 @@ func TestIsUpperSnakeCase(t *testing.T) {
 		{"FOOBAR1", true},
 		{"FOO1BAR", true},
 
+		{"", false},
 		{"0_FOO_BAR", false},
 		{"1FOOBAR", false},
 		{"foo_bar", false},
@@ -72,6 +74,7 @@ func TestIsCamelCase(t *testing.T) {
 		{"fooBar1", true},
 		{"foo1Bar", true},
 
+		{"", false},
 		{"1FooBar", false},
 		{"1fooBar", false},
 		{"foo@Bar", false},
@@ -94,6 +97,7 @@ func TestIsPascalCase(t *testing.T) {
 		{"FooBar1", true},
 		{"Foo1Bar", true},
 
+		{"", false},
 		{"1FooBar", false},
 		{"1fooBar", false},
 		{"Foo@Bar", false},
