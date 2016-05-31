@@ -2,6 +2,7 @@
 package casee
 
 import (
+	"github.com/fatih/camelcase"
 	"strings"
 	"unicode"
 )
@@ -9,11 +10,15 @@ import (
 // Convert argument to snake_case style string.
 // If argument is empty, return itself.
 func ToSnakeCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsSnakeCase(s) {
 		return s
 	}
 
-	return s
+	fields := splitToFields(s)
+	return strings.ToLower(strings.Join(fields, "_"))
 }
 
 // If argument is snake_case style string, return true.
@@ -34,6 +39,9 @@ func IsSnakeCase(s string) bool {
 // Convert argument to chain-case style string.
 // If argument is empty, return itself.
 func ToChainCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsChainCase(s) {
 		return s
 	}
@@ -59,6 +67,13 @@ func IsChainCase(s string) bool {
 // Convert argument to camelCase style string
 // If argument is empty, return itself
 func ToCamelCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+	if IsCamelCase(s) {
+		return s
+	}
+
 	return s
 }
 
@@ -75,6 +90,9 @@ func IsCamelCase(s string) bool {
 // Convert argument to PascalCase style string
 // If argument is empty, return itself
 func ToPascalCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsPascalCase(s) {
 		return s
 	}
@@ -150,4 +168,20 @@ func getRuneAt(s string, i int) rune {
 
 	rs := []rune(s)
 	return rs[0]
+}
+
+func splitToFields(s string) []string {
+	defaultCap := len([]rune(s)) / 3
+	fields := make([]string, 0, defaultCap)
+
+	for _, sf := range strings.Fields(s) {
+		for _, su := range strings.Split(sf, "_") {
+			for _, sh := range strings.Split(su, "-") {
+				for _, sc := range camelcase.Split(sh) {
+					fields = append(fields, sc)
+				}
+			}
+		}
+	}
+	return fields
 }

@@ -9,6 +9,11 @@ type boolExpectedCase struct {
 	expected bool
 }
 
+type stringExpectedCase struct {
+	target   string
+	expected string
+}
+
 func TestIsSnakeCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"foo_bar", true},
@@ -35,6 +40,27 @@ func TestIsSnakeCase(t *testing.T) {
 	for _, tc := range testCases {
 		if actual := IsSnakeCase(tc.target); actual != tc.expected {
 			t.Errorf("IsSnakeCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestToSnakeCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "foo_bar"},
+		{"foo-bar", "foo_bar"},
+		{"foo-bar_baz", "foo_bar_baz"},
+		{"fooBar", "foo_bar"},
+		{"FooBar", "foo_bar"},
+		{"foo bar", "foo_bar"},
+		{"   foo   bar   ", "foo_bar"},
+		{"fooBar111", "foo_bar_111"},
+		{"111FooBar", "111_foo_bar"},
+		{"foo-111-Bar", "foo_111_bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToSnakeCase(tc.target); actual != tc.expected {
+			t.Errorf("IsSnakeCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
