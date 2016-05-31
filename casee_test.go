@@ -95,6 +95,27 @@ func TestIsChainCase(t *testing.T) {
 	}
 }
 
+func TestToChainCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "foo-bar"},
+		{"foo-bar", "foo-bar"},
+		{"foo-bar_baz", "foo-bar-baz"},
+		{"fooBar", "foo-bar"},
+		{"FooBar", "foo-bar"},
+		{"foo bar", "foo-bar"},
+		{"   foo   bar   ", "foo-bar"},
+		{"fooBar111", "foo-bar-111"},
+		{"111FooBar", "111-foo-bar"},
+		{"foo-111-Bar", "foo-111-bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToChainCase(tc.target); actual != tc.expected {
+			t.Errorf("IsChainCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
+
 func TestIsCamelCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"fooBar", true},

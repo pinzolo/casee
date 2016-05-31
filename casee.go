@@ -46,7 +46,8 @@ func ToChainCase(s string) string {
 		return s
 	}
 
-	return s
+	fields := splitToFields(s)
+	return strings.ToLower(strings.Join(fields, "-"))
 }
 
 // If argument is chain-case style string, return true.
