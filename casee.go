@@ -20,13 +20,13 @@ func IsSnakeCase(s string) bool {
 	if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
 		for _, field := range fields {
-			if !madeByLowerAndDigit(field) {
+			if !isMadeByLowerAndDigit(field) {
 				return false
 			}
 		}
 		return true
 	} else {
-		return madeByLowerAndDigit(s)
+		return isMadeByLowerAndDigit(s)
 	}
 }
 
@@ -65,17 +65,17 @@ func IsUpperSnakeCase(s string) bool {
 	if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
 		for _, field := range fields {
-			if !madeByUpperAndDigit(field) {
+			if !isMadeByUpperAndDigit(field) {
 				return false
 			}
 		}
 		return true
 	} else {
-		return madeByUpperAndDigit(s)
+		return isMadeByUpperAndDigit(s)
 	}
 }
 
-func madeByLowerAndDigit(s string) bool {
+func isMadeByLowerAndDigit(s string) bool {
 	if len(s) == 0 {
 		return false
 	}
@@ -88,7 +88,7 @@ func madeByLowerAndDigit(s string) bool {
 	return true
 }
 
-func madeByUpperAndDigit(s string) bool {
+func isMadeByUpperAndDigit(s string) bool {
 	if len(s) == 0 {
 		return false
 	}
