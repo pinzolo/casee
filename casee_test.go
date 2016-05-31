@@ -62,7 +62,7 @@ func TestToSnakeCase(t *testing.T) {
 
 	for _, tc := range testCases {
 		if actual := ToSnakeCase(tc.target); actual != tc.expected {
-			t.Errorf("IsSnakeCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+			t.Errorf("ToSnakeCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
@@ -115,7 +115,7 @@ func TestToChainCase(t *testing.T) {
 
 	for _, tc := range testCases {
 		if actual := ToChainCase(tc.target); actual != tc.expected {
-			t.Errorf("IsChainCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+			t.Errorf("ToChainCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
@@ -161,7 +161,7 @@ func TestToCamelCase(t *testing.T) {
 
 	for _, tc := range testCases {
 		if actual := ToCamelCase(tc.target); actual != tc.expected {
-			t.Errorf("IsCamelCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+			t.Errorf("ToCamelCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
@@ -207,7 +207,7 @@ func TestToPascalCase(t *testing.T) {
 
 	for _, tc := range testCases {
 		if actual := ToPascalCase(tc.target); actual != tc.expected {
-			t.Errorf("IsPascalCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+			t.Errorf("ToPascalCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
