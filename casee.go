@@ -104,7 +104,11 @@ func ToPascalCase(s string) string {
 		return s
 	}
 
-	return s
+	fields := splitToLowerFields(s)
+	for i, f := range fields {
+		fields[i] = toUpperFirstRune(f)
+	}
+	return strings.Join(fields, "")
 }
 
 // If argument is PascalCase style string, return true.

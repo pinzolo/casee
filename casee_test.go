@@ -182,3 +182,24 @@ func TestIsPascalCase(t *testing.T) {
 		}
 	}
 }
+
+func TestToPascalCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "FooBar"},
+		{"foo-bar", "FooBar"},
+		{"foo-bar_baz", "FooBarBaz"},
+		{"fooBar", "FooBar"},
+		{"FooBar", "FooBar"},
+		{"foo bar", "FooBar"},
+		{"   foo   bar   ", "FooBar"},
+		{"fooBar111", "FooBar111"},
+		{"111FooBar", "111FooBar"},
+		{"foo-111-Bar", "Foo111Bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToPascalCase(tc.target); actual != tc.expected {
+			t.Errorf("IsPascalCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
