@@ -13,9 +13,6 @@ func ToSnakeCase(s string) string {
 	if len(s) == 0 {
 		return s
 	}
-	if IsSnakeCase(s) {
-		return s
-	}
 
 	fields := splitToLowerFields(s)
 	return strings.Join(fields, "_")
@@ -40,9 +37,6 @@ func IsSnakeCase(s string) bool {
 // If argument is empty, return itself.
 func ToChainCase(s string) string {
 	if len(s) == 0 {
-		return s
-	}
-	if IsChainCase(s) {
 		return s
 	}
 
@@ -71,9 +65,6 @@ func ToCamelCase(s string) string {
 	if len(s) == 0 {
 		return s
 	}
-	if IsCamelCase(s) {
-		return s
-	}
 
 	fields := splitToLowerFields(s)
 	for i, f := range fields {
@@ -98,9 +89,6 @@ func IsCamelCase(s string) bool {
 // If argument is empty, return itself
 func ToPascalCase(s string) string {
 	if len(s) == 0 {
-		return s
-	}
-	if IsPascalCase(s) {
 		return s
 	}
 
