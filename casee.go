@@ -35,7 +35,7 @@ func ToCamelCase(s string) string {
 }
 
 func IsCamelCase(s string) bool {
-	return true
+	return isMadeByAlphanumeric(s) && isFirstRuneLowerOrNumber(s)
 }
 
 func ToPascalCase(s string) string {
@@ -47,7 +47,7 @@ func ToPascalCase(s string) string {
 }
 
 func IsPascalCase(s string) bool {
-	return true
+	return isMadeByAlphanumeric(s) && isFirstRuneUpperOrNumber(s)
 }
 
 func ToUpperSnakeCase(s string) string {
@@ -85,6 +85,7 @@ func isMadeByLowerAndDigit(s string) bool {
 			return false
 		}
 	}
+
 	return true
 }
 
@@ -98,5 +99,47 @@ func isMadeByUpperAndDigit(s string) bool {
 			return false
 		}
 	}
+
 	return true
+}
+
+func isMadeByAlphanumeric(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+
+	for _, r := range s {
+		if !unicode.IsUpper(r) && !unicode.IsLower(r) && !unicode.IsDigit(r) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func isFirstRuneUpperOrNumber(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+
+	firstRune := getRuneAt(s, 0)
+	return unicode.IsUpper(firstRune) || unicode.IsDigit(firstRune)
+}
+
+func isFirstRuneLowerOrNumber(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+
+	firstRune := getRuneAt(s, 0)
+	return unicode.IsLower(firstRune) || unicode.IsDigit(firstRune)
+}
+
+func getRuneAt(s string, i int) rune {
+	if len(s) == 0 {
+		return 0
+	}
+
+	rs := []rune(s)
+	return rs[0]
 }

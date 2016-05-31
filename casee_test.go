@@ -4,13 +4,13 @@ import (
 	"testing"
 )
 
-type boolCase struct {
+type expectedBool struct {
 	target   string
 	expected bool
 }
 
 func TestIsSnakeCase(t *testing.T) {
-	testCases := []boolCase{
+	testCases := []expectedBool{
 		{"foo_bar", true},
 		{"foo1_bar2", true},
 		{"foo_bar_1", true},
@@ -39,7 +39,7 @@ func TestIsSnakeCase(t *testing.T) {
 }
 
 func TestIsUpperSnakeCase(t *testing.T) {
-	testCases := []boolCase{
+	testCases := []expectedBool{
 		{"FOO_BAR", true},
 		{"FOO_BAR_0", true},
 		{"FOO_0_BAR", true},
@@ -62,6 +62,48 @@ func TestIsUpperSnakeCase(t *testing.T) {
 	for _, tc := range testCases {
 		if actual := IsUpperSnakeCase(tc.target); actual != tc.expected {
 			t.Errorf("IsUpperSnakeCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestIsCamelCase(t *testing.T) {
+	testCases := []expectedBool{
+		{"fooBar", true},
+		{"fooBar1", true},
+		{"1FooBar", true},
+		{"1fooBar", true},
+
+		{"foo@Bar", false},
+		{"foo_bar", false},
+		{"FOO_BAR", false},
+		{"FooBar", false},
+		{"Foo@Bar", false},
+	}
+
+	for _, tc := range testCases {
+		if actual := IsCamelCase(tc.target); actual != tc.expected {
+			t.Errorf("IsCamelCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestIsPascalCase(t *testing.T) {
+	testCases := []expectedBool{
+		{"FooBar", true},
+		{"FooBar1", true},
+		{"1FooBar", true},
+		{"1fooBar", true},
+
+		{"Foo@Bar", false},
+		{"foo_bar", false},
+		{"FOO_BAR", false},
+		{"fooBar", false},
+		{"foo@Bar", false},
+	}
+
+	for _, tc := range testCases {
+		if actual := IsPascalCase(tc.target); actual != tc.expected {
+			t.Errorf("IsPascalCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
 		}
 	}
 }
