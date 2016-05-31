@@ -4,13 +4,13 @@ import (
 	"testing"
 )
 
-type expectedBool struct {
+type boolExpectedCase struct {
 	target   string
 	expected bool
 }
 
 func TestIsSnakeCase(t *testing.T) {
-	testCases := []expectedBool{
+	testCases := []boolExpectedCase{
 		{"foo_bar", true},
 		{"foo1_bar2", true},
 		{"foo_bar_1", true},
@@ -40,7 +40,7 @@ func TestIsSnakeCase(t *testing.T) {
 }
 
 func TestIsUpperSnakeCase(t *testing.T) {
-	testCases := []expectedBool{
+	testCases := []boolExpectedCase{
 		{"FOO_BAR", true},
 		{"FOO_BAR_0", true},
 		{"FOO_0_BAR", true},
@@ -69,7 +69,7 @@ func TestIsUpperSnakeCase(t *testing.T) {
 }
 
 func TestIsCamelCase(t *testing.T) {
-	testCases := []expectedBool{
+	testCases := []boolExpectedCase{
 		{"fooBar", true},
 		{"fooBar1", true},
 		{"foo1Bar", true},
@@ -92,7 +92,7 @@ func TestIsCamelCase(t *testing.T) {
 }
 
 func TestIsPascalCase(t *testing.T) {
-	testCases := []expectedBool{
+	testCases := []boolExpectedCase{
 		{"FooBar", true},
 		{"FooBar1", true},
 		{"Foo1Bar", true},
