@@ -17,8 +17,8 @@ func ToSnakeCase(s string) string {
 		return s
 	}
 
-	fields := splitToFields(s)
-	return strings.ToLower(strings.Join(fields, "_"))
+	fields := splitToLowerFields(s)
+	return strings.Join(fields, "_")
 }
 
 // If argument is snake_case style string, return true.
@@ -46,7 +46,7 @@ func ToChainCase(s string) string {
 		return s
 	}
 
-	fields := splitToFields(s)
+	fields := splitToLowerFields(s)
 	return strings.ToLower(strings.Join(fields, "-"))
 }
 
@@ -75,7 +75,13 @@ func ToCamelCase(s string) string {
 		return s
 	}
 
-	return s
+	fields := splitToLowerFields(s)
+	for i, f := range fields {
+		if i != 0 {
+			fields[i] = toUpperFirstRune(f)
+		}
+	}
+	return strings.Join(fields, "")
 }
 
 // If argument is camelCase style string, return true.
@@ -171,7 +177,7 @@ func getRuneAt(s string, i int) rune {
 	return rs[0]
 }
 
-func splitToFields(s string) []string {
+func splitToLowerFields(s string) []string {
 	defaultCap := len([]rune(s)) / 3
 	fields := make([]string, 0, defaultCap)
 
@@ -179,10 +185,15 @@ func splitToFields(s string) []string {
 		for _, su := range strings.Split(sf, "_") {
 			for _, sh := range strings.Split(su, "-") {
 				for _, sc := range camelcase.Split(sh) {
-					fields = append(fields, sc)
+					fields = append(fields, strings.ToLower(sc))
 				}
 			}
 		}
 	}
 	return fields
+}
+
+func toUpperFirstRune(s string) string {
+	rs := []rune(s)
+	return strings.ToUpper(string(rs[0])) + string(rs[1:])
 }

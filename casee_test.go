@@ -139,6 +139,27 @@ func TestIsCamelCase(t *testing.T) {
 	}
 }
 
+func TestToCamelCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "fooBar"},
+		{"foo-bar", "fooBar"},
+		{"foo-bar_baz", "fooBarBaz"},
+		{"fooBar", "fooBar"},
+		{"FooBar", "fooBar"},
+		{"foo bar", "fooBar"},
+		{"   foo   bar   ", "fooBar"},
+		{"fooBar111", "fooBar111"},
+		{"111FooBar", "111FooBar"},
+		{"foo-111-Bar", "foo111Bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToCamelCase(tc.target); actual != tc.expected {
+			t.Errorf("IsCamelCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
+
 func TestIsPascalCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"FooBar", true},
