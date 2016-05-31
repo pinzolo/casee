@@ -1,4 +1,4 @@
-// Provide convert functions (string => snake_case, UPPER_SNAKE_CASE, camelCase, PascalCase).
+// Provide convert functions (string => snake_case, chain-case, camelCase, PascalCase).
 package casee
 
 import (
@@ -12,9 +12,6 @@ func ToSnakeCase(s string) string {
 	if IsSnakeCase(s) {
 		return s
 	}
-	if IsUpperSnakeCase(s) {
-		return strings.ToLower(s)
-	}
 
 	return s
 }
@@ -25,6 +22,33 @@ func IsSnakeCase(s string) bool {
 		return false
 	} else if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
+		for _, field := range fields {
+			if !isMadeByLowerAndDigit(field) {
+				return false
+			}
+		}
+		return true
+	} else {
+		return isMadeByLowerAndDigit(s)
+	}
+}
+
+// Convert argument to chain-case style string.
+// If argument is empty, return itself.
+func ToChainCase(s string) string {
+	if IsChainCase(s) {
+		return s
+	}
+
+	return s
+}
+
+// If argument is chain-case style string, return true.
+func IsChainCase(s string) bool {
+	if isFirstRuneDigit(s) {
+		return false
+	} else if strings.Contains(s, "-") {
+		fields := strings.Split(s, "-")
 		for _, field := range fields {
 			if !isMadeByLowerAndDigit(field) {
 				return false
@@ -72,36 +96,6 @@ func IsPascalCase(s string) bool {
 	}
 }
 
-// Convert argument to UPPER_SNAKE_CASE style string
-// If argument is empty, return itself
-func ToUpperSnakeCase(s string) string {
-	if IsUpperSnakeCase(s) {
-		return s
-	}
-	if IsSnakeCase(s) {
-		return strings.ToUpper(s)
-	}
-
-	return s
-}
-
-// If argument is UPPER_SNAKE_CASE style string, return true.
-func IsUpperSnakeCase(s string) bool {
-	if isFirstRuneDigit(s) {
-		return false
-	} else if strings.Contains(s, "_") {
-		fields := strings.Split(s, "_")
-		for _, field := range fields {
-			if !isMadeByUpperAndDigit(field) {
-				return false
-			}
-		}
-		return true
-	} else {
-		return isMadeByUpperAndDigit(s)
-	}
-}
-
 func isMadeByLowerAndDigit(s string) bool {
 	if len(s) == 0 {
 		return false
@@ -109,20 +103,6 @@ func isMadeByLowerAndDigit(s string) bool {
 
 	for _, r := range s {
 		if !unicode.IsLower(r) && !unicode.IsDigit(r) {
-			return false
-		}
-	}
-
-	return true
-}
-
-func isMadeByUpperAndDigit(s string) bool {
-	if len(s) == 0 {
-		return false
-	}
-
-	for _, r := range s {
-		if !unicode.IsUpper(r) && !unicode.IsDigit(r) {
 			return false
 		}
 	}

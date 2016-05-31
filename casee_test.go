@@ -39,31 +39,32 @@ func TestIsSnakeCase(t *testing.T) {
 	}
 }
 
-func TestIsUpperSnakeCase(t *testing.T) {
+func TestIsChainCase(t *testing.T) {
 	testCases := []boolExpectedCase{
-		{"FOO_BAR", true},
-		{"FOO_BAR_0", true},
-		{"FOO_0_BAR", true},
-		{"FOOBAR", true},
-		{"FOOBAR1", true},
-		{"FOO1BAR", true},
+		{"foo-bar", true},
+		{"foo1-bar2", true},
+		{"foo-bar-1", true},
+		{"foo-bar-1", true},
+		{"foobar", true},
+		{"foobar1", true},
+		{"foo1bar", true},
 
 		{"", false},
-		{"0_FOO_BAR", false},
-		{"1FOOBAR", false},
-		{"foo_bar", false},
+		{"1-foo-bar", false},
+		{"1foobar", false},
+		{"FOO-BAR", false},
 		{"fooBar", false},
 		{"FooBar", false},
-		{"foobar", false},
-		{"FOO_@BAR", false},
-		{"FOO-BAR", false},
+		{"FOOBAR", false},
+		{"foo-@bar", false},
+		{"foo_bar", false},
 		{"テスト", false},
-		{"テスト_テスト", false},
+		{"テスト-テスト", false},
 	}
 
 	for _, tc := range testCases {
-		if actual := IsUpperSnakeCase(tc.target); actual != tc.expected {
-			t.Errorf("IsUpperSnakeCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		if actual := IsChainCase(tc.target); actual != tc.expected {
+			t.Errorf("IsChainCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
 		}
 	}
 }
