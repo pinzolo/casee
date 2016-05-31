@@ -1,3 +1,4 @@
+// Provide convert functions (string => snake_case, UPPER_SNAKE_CASE, camelCase, PascalCase).
 package casee
 
 import (
@@ -5,6 +6,8 @@ import (
 	"unicode"
 )
 
+// Convert argument to snake_case style string.
+// If argument is empty, return itself.
 func ToSnakeCase(s string) string {
 	if IsSnakeCase(s) {
 		return s
@@ -16,6 +19,7 @@ func ToSnakeCase(s string) string {
 	return s
 }
 
+// If argument is snake_case style string, return true.
 func IsSnakeCase(s string) bool {
 	if isFirstRuneDigit(s) {
 		return false
@@ -32,10 +36,14 @@ func IsSnakeCase(s string) bool {
 	}
 }
 
+// Convert argument to camelCase style string
+// If argument is empty, return itself
 func ToCamelCase(s string) string {
 	return s
 }
 
+// If argument is camelCase style string, return true.
+// If first character is digit, always returns false
 func IsCamelCase(s string) bool {
 	if isFirstRuneDigit(s) {
 		return false
@@ -44,6 +52,8 @@ func IsCamelCase(s string) bool {
 	}
 }
 
+// Convert argument to PascalCase style string
+// If argument is empty, return itself
 func ToPascalCase(s string) string {
 	if IsPascalCase(s) {
 		return s
@@ -52,6 +62,8 @@ func ToPascalCase(s string) string {
 	return s
 }
 
+// If argument is PascalCase style string, return true.
+// If first character is digit, always returns false
 func IsPascalCase(s string) bool {
 	if isFirstRuneDigit(s) {
 		return false
@@ -60,6 +72,8 @@ func IsPascalCase(s string) bool {
 	}
 }
 
+// Convert argument to UPPER_SNAKE_CASE style string
+// If argument is empty, return itself
 func ToUpperSnakeCase(s string) string {
 	if IsUpperSnakeCase(s) {
 		return s
@@ -71,6 +85,7 @@ func ToUpperSnakeCase(s string) string {
 	return s
 }
 
+// If argument is UPPER_SNAKE_CASE style string, return true.
 func IsUpperSnakeCase(s string) bool {
 	if isFirstRuneDigit(s) {
 		return false
