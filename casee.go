@@ -17,7 +17,9 @@ func ToSnakeCase(s string) string {
 }
 
 func IsSnakeCase(s string) bool {
-	if strings.Contains(s, "_") {
+	if isFirstRuneDigit(s) {
+		return false
+	} else if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
 		for _, field := range fields {
 			if !isMadeByLowerAndDigit(field) {
@@ -35,7 +37,11 @@ func ToCamelCase(s string) string {
 }
 
 func IsCamelCase(s string) bool {
-	return isMadeByAlphanumeric(s) && isFirstRuneLowerOrNumber(s)
+	if isFirstRuneDigit(s) {
+		return false
+	} else {
+		return isMadeByAlphanumeric(s) && isFirstRuneLower(s)
+	}
 }
 
 func ToPascalCase(s string) string {
@@ -47,7 +53,11 @@ func ToPascalCase(s string) string {
 }
 
 func IsPascalCase(s string) bool {
-	return isMadeByAlphanumeric(s) && isFirstRuneUpperOrNumber(s)
+	if isFirstRuneDigit(s) {
+		return false
+	} else {
+		return isMadeByAlphanumeric(s) && isFirstRuneUpper(s)
+	}
 }
 
 func ToUpperSnakeCase(s string) string {
@@ -62,7 +72,9 @@ func ToUpperSnakeCase(s string) string {
 }
 
 func IsUpperSnakeCase(s string) bool {
-	if strings.Contains(s, "_") {
+	if isFirstRuneDigit(s) {
+		return false
+	} else if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
 		for _, field := range fields {
 			if !isMadeByUpperAndDigit(field) {
@@ -117,22 +129,27 @@ func isMadeByAlphanumeric(s string) bool {
 	return true
 }
 
-func isFirstRuneUpperOrNumber(s string) bool {
+func isFirstRuneUpper(s string) bool {
 	if len(s) == 0 {
 		return false
 	}
 
-	firstRune := getRuneAt(s, 0)
-	return unicode.IsUpper(firstRune) || unicode.IsDigit(firstRune)
+	return unicode.IsUpper(getRuneAt(s, 0))
 }
 
-func isFirstRuneLowerOrNumber(s string) bool {
+func isFirstRuneLower(s string) bool {
 	if len(s) == 0 {
 		return false
 	}
 
-	firstRune := getRuneAt(s, 0)
-	return unicode.IsLower(firstRune) || unicode.IsDigit(firstRune)
+	return unicode.IsLower(getRuneAt(s, 0))
+}
+
+func isFirstRuneDigit(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+	return unicode.IsDigit(getRuneAt(s, 0))
 }
 
 func getRuneAt(s string, i int) rune {
