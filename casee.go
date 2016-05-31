@@ -18,9 +18,7 @@ func ToSnakeCase(s string) string {
 
 // If argument is snake_case style string, return true.
 func IsSnakeCase(s string) bool {
-	if isFirstRuneDigit(s) {
-		return false
-	} else if strings.Contains(s, "_") {
+	if strings.Contains(s, "_") {
 		fields := strings.Split(s, "_")
 		for _, field := range fields {
 			if !isMadeByLowerAndDigit(field) {
@@ -45,9 +43,7 @@ func ToChainCase(s string) string {
 
 // If argument is chain-case style string, return true.
 func IsChainCase(s string) bool {
-	if isFirstRuneDigit(s) {
-		return false
-	} else if strings.Contains(s, "-") {
+	if strings.Contains(s, "-") {
 		fields := strings.Split(s, "-")
 		for _, field := range fields {
 			if !isMadeByLowerAndDigit(field) {
