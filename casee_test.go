@@ -49,6 +49,7 @@ func TestToSnakeCase(t *testing.T) {
 		{"foo_bar", "foo_bar"},
 		{"foo-bar", "foo_bar"},
 		{"foo-bar_baz", "foo_bar_baz"},
+		{"foo--bar__baz", "foo_bar_baz"},
 		{"fooBar", "foo_bar"},
 		{"FooBar", "foo_bar"},
 		{"foo bar", "foo_bar"},
@@ -56,6 +57,7 @@ func TestToSnakeCase(t *testing.T) {
 		{"fooBar111", "foo_bar_111"},
 		{"111FooBar", "111_foo_bar"},
 		{"foo-111-Bar", "foo_111_bar"},
+		{"", ""},
 	}
 
 	for _, tc := range testCases {
@@ -100,6 +102,7 @@ func TestToChainCase(t *testing.T) {
 		{"foo_bar", "foo-bar"},
 		{"foo-bar", "foo-bar"},
 		{"foo-bar_baz", "foo-bar-baz"},
+		{"foo--bar__baz", "foo-bar-baz"},
 		{"fooBar", "foo-bar"},
 		{"FooBar", "foo-bar"},
 		{"foo bar", "foo-bar"},
@@ -107,6 +110,7 @@ func TestToChainCase(t *testing.T) {
 		{"fooBar111", "foo-bar-111"},
 		{"111FooBar", "111-foo-bar"},
 		{"foo-111-Bar", "foo-111-bar"},
+		{"", ""},
 	}
 
 	for _, tc := range testCases {
@@ -144,6 +148,7 @@ func TestToCamelCase(t *testing.T) {
 		{"foo_bar", "fooBar"},
 		{"foo-bar", "fooBar"},
 		{"foo-bar_baz", "fooBarBaz"},
+		{"foo--bar__baz", "fooBarBaz"},
 		{"fooBar", "fooBar"},
 		{"FooBar", "fooBar"},
 		{"foo bar", "fooBar"},
@@ -151,6 +156,7 @@ func TestToCamelCase(t *testing.T) {
 		{"fooBar111", "fooBar111"},
 		{"111FooBar", "111FooBar"},
 		{"foo-111-Bar", "foo111Bar"},
+		{"", ""},
 	}
 
 	for _, tc := range testCases {
@@ -188,6 +194,7 @@ func TestToPascalCase(t *testing.T) {
 		{"foo_bar", "FooBar"},
 		{"foo-bar", "FooBar"},
 		{"foo-bar_baz", "FooBarBaz"},
+		{"foo--bar__baz", "FooBarBaz"},
 		{"fooBar", "FooBar"},
 		{"FooBar", "FooBar"},
 		{"foo bar", "FooBar"},
@@ -195,6 +202,7 @@ func TestToPascalCase(t *testing.T) {
 		{"fooBar111", "FooBar111"},
 		{"111FooBar", "111FooBar"},
 		{"foo-111-Bar", "Foo111Bar"},
+		{"", ""},
 	}
 
 	for _, tc := range testCases {
