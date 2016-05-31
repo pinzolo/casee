@@ -1,4 +1,7 @@
 # casee
+
+[![Build Status](https://travis-ci.org/pinzolo/casee.png)](http://travis-ci.org/pinzolo/casee)
+
 Golang liibrary for case convertion of string.
 
 ## Usage
