@@ -2,6 +2,7 @@
 package casee
 
 import (
+	"github.com/fatih/camelcase"
 	"strings"
 	"unicode"
 )
@@ -9,11 +10,15 @@ import (
 // Convert argument to snake_case style string.
 // If argument is empty, return itself.
 func ToSnakeCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsSnakeCase(s) {
 		return s
 	}
 
-	return s
+	fields := splitToLowerFields(s)
+	return strings.Join(fields, "_")
 }
 
 // If argument is snake_case style string, return true.
@@ -34,11 +39,15 @@ func IsSnakeCase(s string) bool {
 // Convert argument to chain-case style string.
 // If argument is empty, return itself.
 func ToChainCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsChainCase(s) {
 		return s
 	}
 
-	return s
+	fields := splitToLowerFields(s)
+	return strings.ToLower(strings.Join(fields, "-"))
 }
 
 // If argument is chain-case style string, return true.
@@ -59,7 +68,20 @@ func IsChainCase(s string) bool {
 // Convert argument to camelCase style string
 // If argument is empty, return itself
 func ToCamelCase(s string) string {
-	return s
+	if len(s) == 0 {
+		return s
+	}
+	if IsCamelCase(s) {
+		return s
+	}
+
+	fields := splitToLowerFields(s)
+	for i, f := range fields {
+		if i != 0 {
+			fields[i] = toUpperFirstRune(f)
+		}
+	}
+	return strings.Join(fields, "")
 }
 
 // If argument is camelCase style string, return true.
@@ -75,11 +97,18 @@ func IsCamelCase(s string) bool {
 // Convert argument to PascalCase style string
 // If argument is empty, return itself
 func ToPascalCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
 	if IsPascalCase(s) {
 		return s
 	}
 
-	return s
+	fields := splitToLowerFields(s)
+	for i, f := range fields {
+		fields[i] = toUpperFirstRune(f)
+	}
+	return strings.Join(fields, "")
 }
 
 // If argument is PascalCase style string, return true.
@@ -150,4 +179,25 @@ func getRuneAt(s string, i int) rune {
 
 	rs := []rune(s)
 	return rs[0]
+}
+
+func splitToLowerFields(s string) []string {
+	defaultCap := len([]rune(s)) / 3
+	fields := make([]string, 0, defaultCap)
+
+	for _, sf := range strings.Fields(s) {
+		for _, su := range strings.Split(sf, "_") {
+			for _, sh := range strings.Split(su, "-") {
+				for _, sc := range camelcase.Split(sh) {
+					fields = append(fields, strings.ToLower(sc))
+				}
+			}
+		}
+	}
+	return fields
+}
+
+func toUpperFirstRune(s string) string {
+	rs := []rune(s)
+	return strings.ToUpper(string(rs[0])) + string(rs[1:])
 }

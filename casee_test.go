@@ -9,6 +9,11 @@ type boolExpectedCase struct {
 	expected bool
 }
 
+type stringExpectedCase struct {
+	target   string
+	expected string
+}
+
 func TestIsSnakeCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"foo_bar", true},
@@ -35,6 +40,27 @@ func TestIsSnakeCase(t *testing.T) {
 	for _, tc := range testCases {
 		if actual := IsSnakeCase(tc.target); actual != tc.expected {
 			t.Errorf("IsSnakeCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestToSnakeCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "foo_bar"},
+		{"foo-bar", "foo_bar"},
+		{"foo-bar_baz", "foo_bar_baz"},
+		{"fooBar", "foo_bar"},
+		{"FooBar", "foo_bar"},
+		{"foo bar", "foo_bar"},
+		{"   foo   bar   ", "foo_bar"},
+		{"fooBar111", "foo_bar_111"},
+		{"111FooBar", "111_foo_bar"},
+		{"foo-111-Bar", "foo_111_bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToSnakeCase(tc.target); actual != tc.expected {
+			t.Errorf("IsSnakeCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
@@ -69,6 +95,27 @@ func TestIsChainCase(t *testing.T) {
 	}
 }
 
+func TestToChainCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "foo-bar"},
+		{"foo-bar", "foo-bar"},
+		{"foo-bar_baz", "foo-bar-baz"},
+		{"fooBar", "foo-bar"},
+		{"FooBar", "foo-bar"},
+		{"foo bar", "foo-bar"},
+		{"   foo   bar   ", "foo-bar"},
+		{"fooBar111", "foo-bar-111"},
+		{"111FooBar", "111-foo-bar"},
+		{"foo-111-Bar", "foo-111-bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToChainCase(tc.target); actual != tc.expected {
+			t.Errorf("IsChainCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
+
 func TestIsCamelCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"fooBar", true},
@@ -92,6 +139,27 @@ func TestIsCamelCase(t *testing.T) {
 	}
 }
 
+func TestToCamelCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "fooBar"},
+		{"foo-bar", "fooBar"},
+		{"foo-bar_baz", "fooBarBaz"},
+		{"fooBar", "fooBar"},
+		{"FooBar", "fooBar"},
+		{"foo bar", "fooBar"},
+		{"   foo   bar   ", "fooBar"},
+		{"fooBar111", "fooBar111"},
+		{"111FooBar", "111FooBar"},
+		{"foo-111-Bar", "foo111Bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToCamelCase(tc.target); actual != tc.expected {
+			t.Errorf("IsCamelCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
+
 func TestIsPascalCase(t *testing.T) {
 	testCases := []boolExpectedCase{
 		{"FooBar", true},
@@ -111,6 +179,27 @@ func TestIsPascalCase(t *testing.T) {
 	for _, tc := range testCases {
 		if actual := IsPascalCase(tc.target); actual != tc.expected {
 			t.Errorf("IsPascalCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestToPascalCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "FooBar"},
+		{"foo-bar", "FooBar"},
+		{"foo-bar_baz", "FooBarBaz"},
+		{"fooBar", "FooBar"},
+		{"FooBar", "FooBar"},
+		{"foo bar", "FooBar"},
+		{"   foo   bar   ", "FooBar"},
+		{"fooBar111", "FooBar111"},
+		{"111FooBar", "111FooBar"},
+		{"foo-111-Bar", "Foo111Bar"},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToPascalCase(tc.target); actual != tc.expected {
+			t.Errorf("IsPascalCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
 		}
 	}
 }
