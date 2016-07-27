@@ -1,6 +1,7 @@
 # casee
 
 [![Build Status](https://travis-ci.org/pinzolo/casee.png)](http://travis-ci.org/pinzolo/casee)
+[![Coverage Status](https://coveralls.io/repos/github/pinzolo/casee/badge.svg?branch=master)](https://coveralls.io/github/pinzolo/casee?branch=master)
 
 Golang liibrary for case convertion of string.
 
