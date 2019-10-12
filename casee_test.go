@@ -211,3 +211,49 @@ func TestToPascalCase(t *testing.T) {
 		}
 	}
 }
+
+func TestToFlatCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "foobar"},
+		{"foo-bar", "foobar"},
+		{"foo-bar_baz", "foobarbaz"},
+		{"foo--bar__baz", "foobarbaz"},
+		{"fooBar", "foobar"},
+		{"FooBar", "foobar"},
+		{"foo bar", "foobar"},
+		{"   foo   bar   ", "foobar"},
+		{"fooBar111", "foobar111"},
+		{"111FooBar", "111foobar"},
+		{"foo-111-Bar", "foo111bar"},
+		{"", ""},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToFlatCase(tc.target); actual != tc.expected {
+			t.Errorf("ToFlatCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestIsFlatCase(t *testing.T) {
+	testCases := []boolExpectedCase{
+		{"foobar", true},
+		{"foo1bar", true},
+
+		{"", false},
+		{"1foobar", false},
+		{"foo@bar", false},
+		{"foo_bar", false},
+		{"FOO_BAR", false},
+		{"FooBar", false},
+		{"fooBar", false},
+		{"foo_bar", false},
+	}
+
+	for _, tc := range testCases {
+		if actual := IsFlatCase(tc.target); actual != tc.expected {
+			t.Errorf("IsFlatCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
