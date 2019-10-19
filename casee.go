@@ -109,6 +109,27 @@ func IsPascalCase(s string) bool {
 	}
 }
 
+// Convert argument to flatcase style string
+// If argument is empty, return itself
+func ToFlatCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+
+	fields := splitToLowerFields(s)
+	return strings.Join(fields, "")
+}
+
+// If argument is flatcase style string, return true.
+// If first character is digit, always returns false
+func IsFlatCase(s string) bool {
+	if isFirstRuneDigit(s) {
+		return false
+	} else {
+		return isMadeByLowerAndDigit(s)
+	}
+}
+
 func isMadeByLowerAndDigit(s string) bool {
 	if len(s) == 0 {
 		return false
