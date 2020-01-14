@@ -130,6 +130,35 @@ func IsFlatCase(s string) bool {
 	}
 }
 
+// Convert argument to UPPER_CASE style string.
+// If argument is empty, return itself.
+func ToUpperCase(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+
+	fields := splitToLowerFields(s)
+	for i, f := range fields {
+		fields[i] = strings.ToUpper(f)
+	}
+	return strings.Join(fields, "_")
+}
+
+// If argument is UPPER_CASE style string, return true.
+func IsUpperCase(s string) bool {
+	if strings.Contains(s, "_") {
+		fields := strings.Split(s, "_")
+		for _, field := range fields {
+			if !isMadeByUpperAndDigit(field) {
+				return false
+			}
+		}
+		return true
+	} else {
+		return isMadeByUpperAndDigit(s)
+	}
+}
+
 func isMadeByLowerAndDigit(s string) bool {
 	if len(s) == 0 {
 		return false
@@ -137,6 +166,20 @@ func isMadeByLowerAndDigit(s string) bool {
 
 	for _, r := range s {
 		if !unicode.IsLower(r) && !unicode.IsDigit(r) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func isMadeByUpperAndDigit(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+
+	for _, r := range s {
+		if !unicode.IsUpper(r) && !unicode.IsDigit(r) {
 			return false
 		}
 	}
