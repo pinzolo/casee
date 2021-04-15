@@ -133,15 +133,7 @@ func IsFlatCase(s string) bool {
 // Convert argument to UPPER_CASE style string.
 // If argument is empty, return itself.
 func ToUpperCase(s string) string {
-	if len(s) == 0 {
-		return s
-	}
-
-	fields := splitToLowerFields(s)
-	for i, f := range fields {
-		fields[i] = strings.ToUpper(f)
-	}
-	return strings.Join(fields, "_")
+	return strings.ToUpper(ToSnakeCase(s))
 }
 
 // If argument is UPPER_CASE style string, return true.
