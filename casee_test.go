@@ -257,3 +257,47 @@ func TestIsFlatCase(t *testing.T) {
 	}
 }
 
+func TestIsUpperCase(t *testing.T) {
+	testCases := []boolExpectedCase{
+		{"FOO_BAR", true},
+		{"FOO", true},
+		{"FOO_1_BAR", true},
+
+		{"", false},
+		{"1FooBar", false},
+		{"1fooBar", false},
+		{"FOO@BAR", false},
+		{"Foo_Bar", false},
+		{"fooBar", false},
+		{"foo@Bar", false},
+	}
+
+	for _, tc := range testCases {
+		if actual := IsUpperCase(tc.target); actual != tc.expected {
+			t.Errorf("IsUpperCase(%s) returns %t, but expected %t", tc.target, actual, tc.expected)
+		}
+	}
+}
+
+func TestToUpperCase(t *testing.T) {
+	testCases := []stringExpectedCase{
+		{"foo_bar", "FOO_BAR"},
+		{"foo-bar", "FOO_BAR"},
+		{"foo-bar_baz", "FOO_BAR_BAZ"},
+		{"foo--bar__baz", "FOO_BAR_BAZ"},
+		{"fooBar", "FOO_BAR"},
+		{"FooBar", "FOO_BAR"},
+		{"foo bar", "FOO_BAR"},
+		{"   foo   bar   ", "FOO_BAR"},
+		{"fooBar111", "FOO_BAR_111"},
+		{"111FooBar", "111_FOO_BAR"},
+		{"foo-111-Bar", "FOO_111_BAR"},
+		{"", ""},
+	}
+
+	for _, tc := range testCases {
+		if actual := ToUpperCase(tc.target); actual != tc.expected {
+			t.Errorf("ToUpperCase(%s) returns %s, but expected %s", tc.target, actual, tc.expected)
+		}
+	}
+}
