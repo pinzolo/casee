@@ -27,6 +27,8 @@ Golang liibrary for case convertion of string.
   Convert to PascalCase style string.
 * `ToFlatCase`  
   Convert to flatcase style string.
+* `ToUpperCase`  
+  Convert to UPPER_CASE style string.
 
 ### Check functions
 
@@ -40,6 +42,8 @@ Golang liibrary for case convertion of string.
   Check argument string is PascalCase.
 * `IsFlatCase`  
   Check argument string is flatcase.
+* `ToUpperCase`  
+  Check argument string is UPPER_CASE.
 
 If first character is digit, `IsCamelCase`, `IsPascalCase` and `IsFlatCase` always returns false.  
 Because cannot judge upper or lower.
