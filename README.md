@@ -1,6 +1,6 @@
 # casee
 
-[![Build Status](https://travis-ci.org/pinzolo/casee.png)](http://travis-ci.org/pinzolo/casee)
+[![Test](https://github.com/pinzolo/casee/actions/workflows/test.yml/badge.svg)](https://github.com/pinzolo/casee/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/pinzolo/casee/badge.svg?branch=master)](https://coveralls.io/github/pinzolo/casee?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pinzolo/casee)](https://goreportcard.com/report/github.com/pinzolo/casee)
 [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/pinzolo/casee)
